@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  mongo-db:
+    image: mongo:4.2.2
+    container_name: vmware-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: VMware1!
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  postgres-db:
+    image: postgres:12.2
+    container_name: vmware-postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: VMware1!
+    ports:
+      - 54320:5432
+    volumes:
+      - my_dbdata:/var/lib/postgresql/data
+
+volumes:
+  mongodb_data_container:
+  my_dbdata:
