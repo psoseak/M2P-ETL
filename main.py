@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> add previous working file
 import psycopg2
 import pymongo
 
@@ -21,7 +24,11 @@ def main():
 
 
     #establishing postgresql connection
+<<<<<<< HEAD
     try: 
+=======
+    try:
+>>>>>>> add previous working file
         postgre_connection = psycopg2.connect(database="postgres", user="postgres", password="VMware1!", host="localhost", port="5432")
 
     except (Exception, psycopg2.Error) as error:
