@@ -1,13 +1,7 @@
-# This file was adapted from http://www.postgresqltutorial.com/postgresql-python/connect/
-
-# The following config() function reads in the database.ini file and returns the connection
-# parameters as a dictionary. This function will be imported in to the main python script:
-
-# !/usr/bin/python
 from configparser import ConfigParser
 
 
-def config(filename='postgres_config.ini', section='postgresql'):
+def config(filename='postgres_db.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
