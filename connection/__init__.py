@@ -1,1 +1,1 @@
-from .postgres_config import config
+from . import postgres_config

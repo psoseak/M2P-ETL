@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 
 
-def config(filename='postgres_db.ini', section='postgresql'):
+def config(filename='/Users/weihan/workspace/vmware/M2P-ETL/connection/postgres_db.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
