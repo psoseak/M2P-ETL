@@ -3,6 +3,8 @@ from configparser import ConfigParser
 
 
 def config(filename='/Users/weihan/workspace/vmware/M2P-ETL/connection/postgres_db.ini', section='postgresql'):
+    # changing to environment variable:
+    # https://stackoverflow.com/questions/13364119/passing-python-variables-via-command-line
     # create a parser
     parser = ConfigParser()
     # read config file
