@@ -1,6 +1,8 @@
+import argparse
 import psycopg2
 import pymongo
 from load.postgres import test_retrieve_postgres
+from connection.db_config import DbProperties
 
 
 def main():
@@ -36,10 +38,21 @@ def print_mongo_db(mongo_client, mongo_db, mongo_col):
         print(document)
 
 
-def load_data(db):
+def load_data(db, db_properties):
     if db == 'postgres':
-        test_retrieve_postgres()
+        test_retrieve_postgres(db_properties)
 
 
 if __name__ == '__main__':
-    load_data('postgres')
+    # get arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--user')
+    parser.add_argument('--password')
+    parser.add_argument('--host')
+    parser.add_argument('--port')
+    parser.add_argument('--db')
+    args = parser.parse_args()
+
+    db_properties = DbProperties(args.user, args.password,
+                                 args.host, args.port, args.db)
+    load_data('postgres', db_properties)
