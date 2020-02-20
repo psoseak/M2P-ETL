@@ -4,6 +4,7 @@
 >>>>>>> add previous working file
 import psycopg2
 import pymongo
+from load.postgres import test_postgres
 
 
 def main():
@@ -43,6 +44,10 @@ def print_mongo_db(mongo_client, mongo_db, mongo_col):
     for document in mongo_col.find():
         print (document)
 
+def test():
+    test_postgres()
+
+
 if __name__ == '__main__':
-   main()
+   test_postgres()
 
