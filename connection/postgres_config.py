@@ -1,26 +1,12 @@
-import os
-from configparser import ConfigParser
+import sqlalchemy as sa
 
 
-def config(filename='/Users/weihan/workspace/vmware/M2P-ETL/connection/postgres_db.ini', section='postgresql'):
-    # changing to environment variable:
-    # https://stackoverflow.com/questions/13364119/passing-python-variables-via-command-line
-    # create a parser
-    parser = ConfigParser()
-    # read config file
-    parser.read(filename)
+def dispose_engine(engine):
+    engine.dispose()
 
-    # get section, default to postgresql
-    db = {}
 
-    # Checks to see if section (postgresql) parser exists
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            db[param[0]] = param[1]
-
-    # Returns an error if a parameter is called that is not listed in the initialization file
-    else:
-        raise Exception('Section {0} not found in the {1} file'.format(section, filename))
-
-    return db
+def create_engine(schema):
+    # engine+driver
+    engine = sa.create_engine("postgresql+psycopg2://root:VMware1!@localhost:54320/postgres",
+                              connect_args={'options': '-csearch_path={}'.format(schema)})
+    return engine
