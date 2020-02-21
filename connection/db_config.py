@@ -1,14 +1,14 @@
 class DbProperties:
-    user = ''
-    password = ''
-    host = ''
+    hostname = ''
     port = ''
     db = ''
+    user = ''
+    password = ''
 
     # default constructor
-    def __init__(self, user, password, host, port, db):
-        self.user = user
-        self.password = password
-        self.host = host
+    def __init__(self, hostname, port, db, user, password):
+        self.hostname = hostname
         self.port = port
         self.db = db
+        self.user = user
+        self.password = password

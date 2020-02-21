@@ -1,4 +1,5 @@
 version: '3.7'
+
 services:
   mongo-db:
     image: mongo:4.2.2
