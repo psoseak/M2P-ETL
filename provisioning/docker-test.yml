@@ -4,11 +4,17 @@ services:
   m2p-etl:
     image: mtl:latest
     environment:
-      DEST_HOSTNAME: localhost
+      DEST_HOSTNAME: vmware-postgres
       DEST_PORT: 54320
       DEST_DB: postgres
       DEST_ID: root
       DEST_PASSWORD: VMware1
+    networks:
+      - vmware-network
+
+networks:
+  vmware-network:
+    name: vmware-network
 
 # docker run -e DEST_HOSTNAME=vmware-postgres -e DEST_PORT=54320 -e DEST_DB=postgres -e DEST_ID=root -e DEST_PASSWORD=VMware1! --network=vmware-network --name test mtl:latest
 # docker build -t mtl .

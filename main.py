@@ -58,7 +58,6 @@ if __name__ == '__main__':
     #                              args.host, args.port, args.db)
     # load_data('postgres', db_properties)
 
-    print('run1')
     # get env variables
     DEST_HOSTNAME = os.getenv('DEST_HOSTNAME')
     print(DEST_HOSTNAME)
@@ -69,6 +68,5 @@ if __name__ == '__main__':
     DEST_ID = os.getenv('DEST_ID')
     print(DEST_ID)
     DEST_PASSWORD = os.getenv('DEST_PASSWORD')
-    print(DEST_PASSWORD)
     db_properties_postgres = DbProperties(DEST_HOSTNAME, DEST_PORT, DEST_DB, DEST_ID, DEST_PASSWORD)
     load_data('postgres', db_properties_postgres)
