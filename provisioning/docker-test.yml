@@ -10,5 +10,5 @@ services:
       DEST_ID: root
       DEST_PASSWORD: VMware1
 
-# docker run -e DEST_HOSTNAME=localhost -e DEST_PORT=54320 -e DEST_DB=postgres -e DEST_ID=root -e DEST_PASSWORD=VMware1! --name test mtl:latest
+# docker run -e DEST_HOSTNAME=vmware-postgres -e DEST_PORT=54320 -e DEST_DB=postgres -e DEST_ID=root -e DEST_PASSWORD=VMware1! --network=vmware-network --name test mtl:latest
 # docker build -t mtl .

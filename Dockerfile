@@ -15,11 +15,11 @@ ENV SRC_HOSTNAME="" \
     SRC_DB="" \
     SRC_ID="" \
     SRC_PASSWORD="" \
-    DEST_HOSTNAME="localhost" \
-    DEST_PORT="54320" \
-    DEST_DB="postgres" \
-    DEST_ID="root" \
-    DEST_PASSWORD="VMware1!"
+    DEST_HOSTNAME="" \
+    DEST_PORT="" \
+    DEST_DB="" \
+    DEST_ID="" \
+    DEST_PASSWORD=""
 
 CMD ["python", "/app/main.py"]
 

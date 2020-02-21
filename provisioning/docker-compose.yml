@@ -12,6 +12,8 @@ services:
     volumes:
       - mongodb_data_container:/data/db
       - ./dump-20200217:/dump
+    networks:
+      - vmware-network
 
   postgres-db:
     image: postgres:12.2
@@ -23,6 +25,8 @@ services:
       - 54320:5432
     volumes:
       - my_dbdata:/var/lib/postgresql/data
+    networks:
+      - vmware-network
 
 #  mongo-seed:
 #    image: mongo:4.2.2
@@ -36,3 +40,7 @@ services:
 volumes:
   mongodb_data_container:
   my_dbdata:
+
+networks:
+  vmware-network:
+    name: vmware-network
