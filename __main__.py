@@ -12,12 +12,24 @@ from load.postgres import test_retrieve_postgres
 from connection.db_config import DbProperties
 
 
+<<<<<<< HEAD:main.py
 def main():
     # establishing mongo connection
     try:
         mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
         mongo_db = mongo_client["mydatabase"]  # creating database
         mongo_col = mongo_db["customers"]  # creating collection
+=======
+import os
+
+from migrate_script.extract.mongo_extract import Extract #has to be relative in the future
+
+def __main__():
+
+    #establishing mongo connection
+    try:
+        mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+>>>>>>> added setup.py and extraction classes:__main__.py
 
     except (Exception) as error:
         print(error)
@@ -25,7 +37,9 @@ def main():
 
     else:
         print("successfully connected to mongo")
-        print_mongo_db(mongo_client, mongo_db, mongo_col)
+        extraction_instance = Extract(mongo_client)
+        # print("mongo databases list: "+str(extraction_instance.databases[4]))
+        extraction_instance.print_all_collections_in_database(extraction_instance.databases[3])
 
 <<<<<<< HEAD
 
@@ -49,6 +63,7 @@ def main():
     else:
         print("successfully connected to postgresql")
 
+<<<<<<< HEAD:main.py
 
 def print_mongo_db(mongo_client, mongo_db, mongo_col):
     print("mongo db entries: ")
@@ -74,3 +89,6 @@ if __name__ == '__main__':
     db_properties = DbProperties(args.user, args.password,
                                  args.host, args.port, args.db)
     load_data('postgres', db_properties)
+=======
+__main__()
+>>>>>>> added setup.py and extraction classes:__main__.py
