@@ -1,16 +1,11 @@
-FROM python:3.8.1-slim-buster
+FROM python:3.8.1-slim
 LABEL maintainer="PSO SEAK"
 
 # Base setup
 WORKDIR /app
+
 COPY requirements.txt .
-
-#RUN apk --update add --no-cache g++ \
-#    && apk add libpq postgresql-dev \
-#    && apk add build-base
-
-RUN pip install --no-cache-dir -r /app/requirements.txt
-
+RUN pip3 install --no-cache-dir -r /app/requirements.txt
 COPY . /app
 
 ENV SRC_HOSTNAME="" \
@@ -23,5 +18,5 @@ ENV SRC_HOSTNAME="" \
     DEST_ID="" \
     DEST_PASSWORD=""
 
-CMD ["python", "/app/main.py"]
+CMD ["python3", "/app/main.py"]
 
