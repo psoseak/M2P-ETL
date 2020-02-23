@@ -4,9 +4,6 @@ from load.postgres import test_retrieve_postgres
 from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
 from transform.data_transform import Transform
-
-import os
-
 from extract.mongo_extract import Extract #has to be relative in the future
 
 def load_data(db, db_properties):

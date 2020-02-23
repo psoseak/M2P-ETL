@@ -18,5 +18,4 @@ def create_engine_config(schema, db_properties):
         db_properties.user, db_properties.password, db_properties.host,
         db_properties.port, db_properties.db),
                               connect_args={'options': '-csearch_path={}'.format(schema)})
-
     return engine

@@ -26,8 +26,9 @@ def test_retrieve_postgres(db_properties):
 
     # Test on retrieving from postgres
     sql_query = 'SELECT * FROM vendors'
-    # sql_query = "SELECT version()"]
+    # sql_query = "SELECT version()"
     retrieved_info = select_table(sql_query, schema, db_properties)
+    print(retrieved_info)
 
     # Add one more row
     retrieved_info_new = retrieved_info.append({'vendor_id': '3', 'vendor_name': 'new name'}, ignore_index=True)
