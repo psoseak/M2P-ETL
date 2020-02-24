@@ -1,4 +1,6 @@
 import sqlalchemy as sa
+from sqlalchemy import exc
+import logging
 
 
 def dispose_engine(engine):
@@ -8,15 +10,16 @@ def dispose_engine(engine):
 def check_schema_exist(schema, db_properties):
     # Set none to create an engine not pointing to any schema
     engine = create_engine_config(None, db_properties)
-    # Read
-    sql_query = "SELECT COUNT(schema_name) FROM information_schema.schemata WHERE schema_name = '{}'".format(schema)
-    result = engine.execute(sql_query).scalar()
-    print(result)
-    if result == 0:
-        # schema does not exist
-        # create schema
-        sql_query = "CREATE SCHEMA IF NOT EXISTS {}".format(schema)
-        result = engine.execute(sql_query)
+    if engine is not None:
+        # Read
+        sql_query = "SELECT COUNT(schema_name) FROM information_schema.schemata WHERE schema_name = '{}'".format(schema)
+        result = engine.execute(sql_query).scalar()
+        print(result)
+        if result == 0:
+            # schema does not exist
+            # create schema
+            sql_query = "CREATE SCHEMA IF NOT EXISTS {}".format(schema)
+            result = engine.execute(sql_query)
 
 
 def create_engine_config(schema, db_properties):
@@ -32,4 +35,9 @@ def create_engine_config(schema, db_properties):
             db_properties.user, db_properties.password, db_properties.hostname,
             db_properties.port, db_properties.db))
 
-    return engine
+    try:
+        engine.connect()
+        return engine
+    except exc.SQLAlchemyError:
+        logging.critical("Failed to connect to: {}:{}, {}".format(db_properties.hostname, db_properties.port, db_properties.db))
+        return None

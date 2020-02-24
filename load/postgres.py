@@ -5,8 +5,10 @@ from connection.postgres_config import create_engine_config, dispose_engine, che
 # Read from db and set it as data frame
 def select_table(sql_query, schema, db_properties):
     try:
-        table = pd.read_sql_query(sql_query, create_engine_config(schema, db_properties))
-        return table
+        engine = create_engine_config(schema, db_properties)
+        if engine is not None:
+            table = pd.read_sql_query(sql_query, engine)
+            return table
     except:
         return ''
 
@@ -14,10 +16,11 @@ def select_table(sql_query, schema, db_properties):
 # To insert to database
 def upsert_table(data_frame, schema, table_name, db_properties):
     engine = create_engine_config(schema, db_properties)
-    data_frame.to_sql(table_name, con=engine, if_exists='replace')
+    if engine is not None:
+        data_frame.to_sql(table_name, con=engine, if_exists='replace')
 
-    # Try to close connection
-    dispose_engine(engine)
+        # Try to close connection
+        dispose_engine(engine)
 
 
 def test_retrieve_postgres(db_properties):
