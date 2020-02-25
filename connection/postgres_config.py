@@ -1,6 +1,5 @@
 import sqlalchemy as sa
-from sqlalchemy import exc
-import logging
+import util as log
 
 
 def dispose_engine(engine):
@@ -19,7 +18,8 @@ def check_schema_exist(schema, db_properties):
             # schema does not exist
             # create schema
             sql_query = "CREATE SCHEMA IF NOT EXISTS {}".format(schema)
-            result = engine.execute(sql_query)
+            engine.execute(sql_query)
+            log.message.warning_no_schema(db_properties, schema)
 
 
 def create_engine_config(schema, db_properties):
@@ -38,6 +38,6 @@ def create_engine_config(schema, db_properties):
     try:
         engine.connect()
         return engine
-    except exc.SQLAlchemyError:
-        logging.critical("Failed to connect to: {}:{}, {}".format(db_properties.hostname, db_properties.port, db_properties.db))
+    except sa.exc.SQLAlchemyError:
+        log.message.error_conn(db_properties)
         return None
