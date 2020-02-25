@@ -1,4 +1,18 @@
 import logging
+from logging.handlers import RotatingFileHandler
+
+
+def initialize():
+    log_file = 'app.log'
+    log_formatter = logging.Formatter('%(asctime)s - %(message)s')
+    log_handler = RotatingFileHandler(log_file, mode='w', maxBytes=5 * 1024 * 1024,
+                                      backupCount=2, encoding=None, delay=0)
+    log_handler.setFormatter(log_formatter)
+
+    app_log = logging.getLogger('root')
+    app_log.addHandler(log_handler)
+
+    return app_log
 
 
 def error_conn(db_properties):
@@ -7,7 +21,8 @@ def error_conn(db_properties):
         port=db_properties.port,
         db=db_properties.db
     )
-    logging.critical(msg)
+    app_log = initialize()
+    app_log.critical(msg)
 
 
 def warning_no_schema(db_properties, schema):
@@ -17,4 +32,5 @@ def warning_no_schema(db_properties, schema):
         port=db_properties.port,
         db=db_properties.db
     )
-    logging.warning(msg)
+    app_log = initialize()
+    app_log.warning(msg)
