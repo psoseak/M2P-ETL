@@ -215,4 +215,7 @@ ENV/
 *.bson
 *.json
 
+# vs code workspace
+*.code-workspace
+
 # End of https://www.gitignore.io/api/macos,linux,django,python,pycharm
