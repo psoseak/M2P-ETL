@@ -1,4 +1,3 @@
-import argparse
 import os
 import psycopg2
 import pymongo
