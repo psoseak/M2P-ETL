@@ -218,4 +218,7 @@ ENV/
 # vs code workspace
 *.code-workspace
 
+#mac ds store
+*.DS_Store
+
 # End of https://www.gitignore.io/api/macos,linux,django,python,pycharm
