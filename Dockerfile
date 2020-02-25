@@ -3,10 +3,8 @@ LABEL maintainer="PSO SEAK"
 
 # Base setup
 WORKDIR /app
-
-COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r /app/requirements.txt
 COPY . /app
+RUN pip3 install --no-cache-dir -r /app/requirements.txt
 
 ENV SRC_HOSTNAME="" \
     SRC_DB="" \
