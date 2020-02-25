@@ -1,4 +1,5 @@
 import argparse
+import os
 import psycopg2
 import pymongo
 from load.postgres import test_retrieve_postgres
@@ -43,16 +44,16 @@ def load_data(db, db_properties):
         test_retrieve_postgres(db_properties)
 
 
-if __name__ == '__main__':
-    # get arguments
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--user')
-    parser.add_argument('--password')
-    parser.add_argument('--host')
-    parser.add_argument('--port')
-    parser.add_argument('--db')
-    args = parser.parse_args()
+def test_weihan():
+    # get env variables
+    DEST_HOSTNAME = os.getenv('DEST_HOSTNAME')
+    DEST_PORT = os.getenv('DEST_PORT')
+    DEST_DB = os.getenv('DEST_DB')
+    DEST_ID = os.getenv('DEST_ID')
+    DEST_PASSWORD = os.getenv('DEST_PASSWORD')
+    db_properties_postgres = DbProperties(DEST_HOSTNAME, DEST_PORT, DEST_DB, DEST_ID, DEST_PASSWORD)
+    load_data('postgres', db_properties_postgres)
 
-    db_properties = DbProperties(args.user, args.password,
-                                 args.host, args.port, args.db)
-    load_data('postgres', db_properties)
+
+if __name__ == '__main__':
+    test_weihan()
