@@ -3,25 +3,33 @@ import os
 from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
 from extract.mongo_extract import Extract
-from load.postgres import test_retrieve_postgres
 from transform.data_transform import Transform
+from load.postgres import upsert_table
 
 
-def run_main_sequence():
+def run():
     db_properties_source = initialize_source()
     db_properties_destination = initialize_destination()
 
-    # default port 27017
     mongo_connection = MongoConnection(db_properties_source)
     extraction_instance = Extract(mongo_connection.get_client())
-    # comment out by weihan
     wekan_data = extraction_instance.extract_data_from_database(db_properties_source.db)
     data_transformer = Transform(wekan_data)
 
     for collection in wekan_data:
         # testing to convert this object to df
         collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection])
-    #     # upsert_table(collection_data_frame, 'wekan', collection, db_properties)
+        # print(collection_data_frame)
+        if collection == "cards":
+            # new_df = collection_data_frame[["_id", "customFields"]]
+            new_df = collection_data_frame.iloc[:, : 5]
+            print(new_df.dtypes)
+            # new_df = new_df.set_index('_id', inplace=True)
+            # print(new_df)
+            # print(collection)
+            upsert_table(new_df, 'wekan', collection, db_properties_destination)
+        # break
+
 
 
 def initialize_destination():
@@ -46,4 +54,4 @@ def initialize_source():
 
 
 if __name__ == '__main__':
-    run_main_sequence()
+    run()

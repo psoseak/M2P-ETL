@@ -14,7 +14,6 @@ class MongoConnection:
             hostname=self.db_properties.hostname,
             port=self.db_properties.port
         )
-        print(parameter_string)
         mongo_client = pymongo.MongoClient(parameter_string)
         return mongo_client
 
