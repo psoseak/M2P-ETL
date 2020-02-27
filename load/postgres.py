@@ -1,5 +1,4 @@
 import pandas as pd
-import sqlalchemy
 
 from connection.postgres_config import create_engine_config, dispose_engine, check_schema_exist
 

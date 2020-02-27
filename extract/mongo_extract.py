@@ -29,11 +29,25 @@ class Extract:
         extracted_data = {}
 
         for collection_name in database.collection_names():
-            collection = database[collection_name]
-            extracted_collection = {}
-            for document in collection.find():
-                extracted_collection[document["_id"]] = document
-            extracted_data[collection_name] = extracted_collection
+            if collection_name == "cards":
+                collection = database[collection_name]
+                # test
+                sample = collection.find_one()
+                # print(sample)
+                print(sample.keys())
+                print(type(sample['_id']))
 
-        # print (str(extracted_data["boards"]["DPojncq9H63MGq5M2"]))
+                # self.create_new_schema()
+
+                # continue
+                extracted_collection = {}
+                for document in collection.find():
+                    extracted_collection[document["_id"]] = document
+                    break
+
+                extracted_data[collection_name] = extracted_collection
+
         return extracted_data
+
+    def create_new_schema(self, data):
+        print(data)
