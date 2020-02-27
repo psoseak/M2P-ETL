@@ -33,9 +33,11 @@ class Extract:
                 collection = database[collection_name]
                 # test
                 sample = collection.find_one()
-                # print(sample)
-                print(sample.keys())
-                print(type(sample['_id']))
+                for key in sample.keys():
+                    # print(key)
+                    # print(type(sample[key]))
+                    if type(sample[key]) is list:
+                        print(key)
 
                 # self.create_new_schema()
 
