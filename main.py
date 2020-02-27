@@ -17,18 +17,12 @@ def run():
     data_transformer = Transform(wekan_data)
 
     for collection in wekan_data:
-        # testing to convert this object to df
-        collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection])
-        # print(collection_data_frame)
-        if collection == "cards":
-            # new_df = collection_data_frame[["_id", "customFields"]]
-            new_df = collection_data_frame.iloc[:, : 5]
-            print(new_df.dtypes)
-            # new_df = new_df.set_index('_id', inplace=True)
-            # print(new_df)
-            # print(collection)
-            upsert_table(new_df, 'wekan', collection, db_properties_destination)
-        # break
+        collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection]).applymap(
+            str)
+        if collection_data_frame.size > 0:
+            collection_data_frame = collection_data_frame.set_index("_id")
+
+        upsert_table(collection_data_frame, 'wekan', collection, db_properties_destination)
 
 
 
