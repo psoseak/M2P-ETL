@@ -63,7 +63,7 @@ class Extract:
         return extracted_data
 
     def create_new_schema(self, data, key):
-        if key == 'members':
+        if key == 'customFields':
             data_index = 1
             df_all = None
             data_type = None
@@ -79,7 +79,6 @@ class Extract:
 
                     if isinstance(key_data[0], str):
                         list_key = [row_id] * row_size
-                        columns = ['_id', key]
                         df_new = pd.DataFrame(list(zip(list_key, key_data)))
                         if df_all is None:
                             data_type = 'str'
