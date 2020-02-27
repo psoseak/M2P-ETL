@@ -7,6 +7,7 @@ COPY . /app
 RUN pip3 install --no-cache-dir -r /app/requirements.txt
 
 ENV SRC_HOSTNAME="" \
+    SRC_PORT="" \
     SRC_DB="" \
     SRC_ID="" \
     SRC_PASSWORD="" \
@@ -17,4 +18,3 @@ ENV SRC_HOSTNAME="" \
     DEST_PASSWORD=""
 
 CMD ["python3", "/app/main.py"]
-

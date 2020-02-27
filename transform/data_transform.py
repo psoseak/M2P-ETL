@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy
+
 
 class Transform:
     def __init__(self, data):
@@ -7,14 +7,11 @@ class Transform:
 
     def print_all_data(self):
         print(self.data)
-    
+
     def get_data(self):
         return self.data
 
     def convert_dictionary_to_data_frame(self, py_dict):
         df = pd.DataFrame.from_dict(py_dict, orient='index')
         df.transpose()
-
-        #df.drop(df.columns[[0]], axis =)
-        print (df)
         return df
