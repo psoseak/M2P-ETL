@@ -1,7 +1,5 @@
-from pprint import pprint
-import pandas as pd
-
 from transform.data_transform import Transform
+
 
 class Extract:
     def __init__(self, client):
