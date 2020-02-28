@@ -19,15 +19,20 @@ def error_conn(db_properties):
     logging.warning(msg)
 
 
-def warning_no_schema(db_properties, schema):
+def warning_no_schema(db_properties):
     msg = 'Warning no schema [{schema}] at {hostname}:{port}, {db}'.format(
-        schema=schema,
+        schema=db_properties.schema,
         hostname=db_properties.hostname,
         port=db_properties.port,
         db=db_properties.db
     )
     initialize()
     logging.warning(msg)
+
+    msg = 'Creating new schema [{schema}]'.format(
+        schema=db_properties.schema
+    )
+    logging.info(msg)
 
 
 def info_start():
