@@ -41,7 +41,6 @@ class Extract:
             document_first = collection.find_one()
             if document_first is not None:
                 for key in document_first.keys():
-                    print(key)
                     if type(document_first[key]) is list:
                         field_key_list.append(key)
 
@@ -58,7 +57,6 @@ class Extract:
                 # drop columns that are is list
                 if field_key_list != 0:
                     for field in field_key_list:
-                        print(document)
                         del document[field]
 
                 extracted_collection[document["_id"]] = document
