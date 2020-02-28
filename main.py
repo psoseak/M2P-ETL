@@ -5,6 +5,7 @@ from connection.mongo_connection import MongoConnection
 from extract.mongo_extract import Extract
 from transform.data_transform import Transform
 from load.postgres import upsert_table
+import pandas as pd
 
 
 def run():
@@ -17,13 +18,15 @@ def run():
     data_transformer = Transform(wekan_data)
 
     for collection in wekan_data:
-        collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection]).applymap(
-            str)
-        if collection_data_frame.size > 0:
-            collection_data_frame = collection_data_frame.set_index("_id")
+        if type(wekan_data[collection]) is pd.DataFrame:
+            upsert_table(wekan_data[collection], 'wekan', collection, db_properties_destination)
+        else:
+            collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection]).applymap(
+                str)
+            if collection_data_frame.size > 0:
+                collection_data_frame = collection_data_frame.set_index("_id")
 
-        upsert_table(collection_data_frame, 'wekan', collection, db_properties_destination)
-
+            upsert_table(collection_data_frame, 'wekan', collection, db_properties_destination)
 
 
 def initialize_destination():
