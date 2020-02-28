@@ -4,7 +4,7 @@ from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
 from extract.mongo_extract import Extract
 from transform.data_transform import Transform
-from load.postgres import upsert_table
+from load.postgres import upsert_table, delete_all_by_schema
 import pandas as pd
 import util as log
 
@@ -22,16 +22,17 @@ def run():
 
     data_transformer = Transform()
 
+    delete_all_by_schema(db_properties_destination)
     for collection in wekan_data:
         if type(wekan_data[collection]) is pd.DataFrame:
-            upsert_table(wekan_data[collection], 'wekan', collection, db_properties_destination)
+            upsert_table(wekan_data[collection], collection, db_properties_destination)
         else:
             collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection]).applymap(
                 str)
             if collection_data_frame.size > 0:
                 collection_data_frame = collection_data_frame.set_index("_id")
 
-            upsert_table(collection_data_frame, 'wekan', collection, db_properties_destination)
+            upsert_table(collection_data_frame, collection, db_properties_destination)
 
     log.message.info_migrated_completed()
 
@@ -44,7 +45,8 @@ def initialize_destination():
     DEST_DB = os.getenv('DEST_DB')
     DEST_ID = os.getenv('DEST_ID')
     DEST_PASSWORD = os.getenv('DEST_PASSWORD')
-    db_properties_destination = DbProperties(DEST_HOSTNAME, DEST_PORT, DEST_DB, DEST_ID, DEST_PASSWORD)
+    DEST_SCHEMA = os.getenv('DEST_SCHEMA')
+    db_properties_destination = DbProperties(DEST_HOSTNAME, DEST_PORT, DEST_DB, DEST_ID, DEST_PASSWORD, DEST_SCHEMA)
     return db_properties_destination
 
 
@@ -54,7 +56,8 @@ def initialize_source():
     SRC_DB = os.getenv('SRC_DB')
     SRC_ID = os.getenv('SRC_ID')
     SRC_PASSWORD = os.getenv('SRC_PASSWORD')
-    db_properties_source = DbProperties(SRC_HOSTNAME, SRC_PORT, SRC_DB, SRC_ID, SRC_PASSWORD)
+    SRC_SCHEMA = os.getenv('SRC_SCHEMA')
+    db_properties_source = DbProperties(SRC_HOSTNAME, SRC_PORT, SRC_DB, SRC_ID, SRC_PASSWORD, SRC_SCHEMA)
     return db_properties_source
 
 
