@@ -15,7 +15,7 @@ def run():
     mongo_connection = MongoConnection(db_properties_source)
     extraction_instance = Extract(mongo_connection.get_client())
     wekan_data = extraction_instance.extract_data_from_database(db_properties_source.db)
-    data_transformer = Transform(wekan_data)
+    data_transformer = Transform()
 
     for collection in wekan_data:
         if type(wekan_data[collection]) is pd.DataFrame:
@@ -31,6 +31,7 @@ def run():
 
 def initialize_destination():
     # get env variables
+    # TODO: add scheme for destination
     DEST_HOSTNAME = os.getenv('DEST_HOSTNAME')
     DEST_PORT = os.getenv('DEST_PORT')
     DEST_DB = os.getenv('DEST_DB')
