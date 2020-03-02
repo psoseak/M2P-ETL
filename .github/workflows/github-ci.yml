@@ -24,7 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           ls -ls /usr/bin/python*
           pip3 install -r requirements.txt
 
