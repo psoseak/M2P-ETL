@@ -1,4 +1,4 @@
-from transform.data_transform import Transform
+from transform.mongo_postgres_transform import Transform
 
 
 class Extract:
