@@ -19,7 +19,7 @@ parser.add_argument('-t',
                     help='score threshold to fail pylint runner | '
                          'Default: %(default)s | '
                          'Type: %(type)s ',
-                    default=5,
+                    default=2,
                     type=float)
 
 args = parser.parse_args()
