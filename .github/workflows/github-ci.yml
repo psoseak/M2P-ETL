@@ -13,11 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # test to get the github reference
-      - name: Get the version
-        id: vars
-        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+      # code smell the project
+      - name: Pylint
+        run: |
+          pip3 install "pylint==2.4.4"
+          pylint .
 
       # dockerize
-      - name: Build the tagged Docker image
+      - name: Dockerize
         run: docker build . --file Dockerfile --tag m2p_etl:latest
