@@ -19,7 +19,7 @@ parser.add_argument('-t',
                     help='score threshold to fail pylint runner | '
                          'Default: %(default)s | '
                          'Type: %(type)s ',
-                    default=2,
+                    default=5,
                     type=float)
 
 args = parser.parse_args()
@@ -30,7 +30,7 @@ logging.info('PyLint Starting | '
              'Path: {} | '
              'Threshold: {} '.format(path, threshold))
 
-results = Run([path])
+results = Run([path], do_exit=False)
 
 final_score = results.linter.stats['global_note']
 
@@ -40,9 +40,8 @@ if final_score < threshold:
                'Score: {} | '
                'Threshold: {} '.format(final_score, threshold))
 
-    print(threshold)
     logging.error(message)
-    raise Exception(message)
+    # raise Exception(message)
 
 else:
     message = ('PyLint Passed | '
