@@ -14,11 +14,14 @@ jobs:
         uses: actions/checkout@v2
 
       # code smell the project
+      - name: Install Requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+
       - name: Pylint
         run: |
-          sudo apt-get install python3-setuptools
-          pip3 install "pylint==2.4.4"
-          pylint .
+          python lint.py --path ../M2P-ETL --threshold 5
 
       # dockerize
       - name: Dockerize
