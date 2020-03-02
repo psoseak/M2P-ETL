@@ -25,6 +25,12 @@ docker pull postgres:12.2
 docker run -d -p 5432:5432 -v /opt/postgresqk/var/lib/postgresql/data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=VMware1! --name postgresql postgres:12.2```
 ```
 
+#### Pylint 
+- source-code, bug and quality checker for the Python programming language
+```shell script
+python lint.py --path ../M2P-ETL --threshold 5
+```
+
 #### Docker build
 ```shell script
 docker build -t [name]:[version-number] .
