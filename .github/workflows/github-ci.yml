@@ -37,5 +37,7 @@ jobs:
       - name: Push To Registry
         run: |
           docker login -u ${{ secrets.QUAY_IO_USERID }} -p ${{ secrets.QUAY_IO_PASSWD }}
+          echo 'done login'
           docker push quay.io/psoseak/m2p-etl:latest
+          echo 'completed push'
           docker logout
