@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        matrix:
-          python-version: [3.8.2]
+        python-version: [3.8.2]
 
     steps:
       # fetch and checkout the current commit
