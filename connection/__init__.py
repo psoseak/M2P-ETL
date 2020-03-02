@@ -1,1 +1,1 @@
-from . import postgres_config
+from . import postgres_connection

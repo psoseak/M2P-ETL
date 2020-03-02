@@ -3,26 +3,31 @@ import os
 from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
 from extract.mongo_extract import Extract
-from transform.data_transform import Transform
-from load.postgres import upsert_table, delete_all_by_schema
+from transform.mongo_postgres_transform import Transform
+from load.postgres import upsert_table, delete_all_by_schema, check_schema_exist
 import pandas as pd
 import util as log
 
 
 def run():
+    # define the database properties
     log.message.info_start()
     db_properties_source = initialize_source()
     db_properties_destination = initialize_destination()
 
+    # TODO: test all database before extracting
+
     mongo_connection = MongoConnection(db_properties_source)
     extraction_instance = Extract(mongo_connection.get_client())
     wekan_data = extraction_instance.extract_data_from_database(db_properties_source.db)
-    # TODO: test destination database
     log.message.info_database_connected()
 
+    # initialize seeding variables
     data_transformer = Transform()
 
+    # pre-check for destination database
     delete_all_by_schema(db_properties_destination)
+    check_schema_exist(db_properties_destination)
     for collection in wekan_data:
         if type(wekan_data[collection]) is pd.DataFrame:
             upsert_table(wekan_data[collection], collection, db_properties_destination)
