@@ -1,0 +1,35 @@
+name: M2P-ETL
+
+# trigger the workflow when someone pushes the code to repo
+on: [push]
+
+jobs:
+  build:
+    # run the below steps on a fresh instance of a virtual environment
+    runs-on: ubuntu-latest
+
+    steps:
+      # fetch and checkout the current commit
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # code smell the project
+      - name: Install Requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+
+      - name: Set up Python 3.8.1
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8.1
+
+      - name: Pylint
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+          python lint.py --path ../M2P-ETL --threshold 5
+
+      # dockerize
+      - name: Dockerize
+        run: docker build . --file Dockerfile --tag m2p_etl:latest
