@@ -32,4 +32,10 @@ jobs:
 
       # dockerize
       - name: Dockerize
-        run: docker build . --file Dockerfile --tag m2p_etl:latest
+        run: docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:latest
+
+      - name: Push To Registry
+        run: |
+          docker login -u ${{ secrets.QUAY_IO_USERID }} -p ${{ secrets.QUAY_IO_PASSWD }}`
+          docker push quay.io/psoseak/m2p-etl:latest
+          docker logout
