@@ -16,6 +16,7 @@ jobs:
       # code smell the project
       - name: Pylint
         run: |
+          sudo apt-get install python3-setuptools
           pip3 install "pylint==2.4.4"
           pylint .
 
