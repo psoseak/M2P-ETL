@@ -21,6 +21,7 @@ jobs:
 
       - name: Pylint
         run: |
+          pwd
           python lint.py --path ../M2P-ETL --threshold 5
 
       # dockerize
