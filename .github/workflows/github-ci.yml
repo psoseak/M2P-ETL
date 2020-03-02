@@ -7,9 +7,6 @@ jobs:
   build:
     # run the below steps on a fresh instance of a virtual environment
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.8.2]
 
     steps:
       # fetch and checkout the current commit
