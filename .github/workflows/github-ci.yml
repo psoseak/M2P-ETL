@@ -27,7 +27,6 @@ jobs:
       - name: Pylint
         run: |
           pwd
-          pip3 install
           echo "trying to ruin...."
           python lint.py --path ../M2P-ETL --threshold 1
 
