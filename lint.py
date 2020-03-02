@@ -40,6 +40,7 @@ if final_score < threshold:
                'Score: {} | '
                'Threshold: {} '.format(final_score, threshold))
 
+    print(threshold)
     logging.error(message)
     raise Exception(message)
 
