@@ -19,7 +19,7 @@ def run():
     # TODO: test all database before extracting
     postgres_connection = PostgresConnection(db_properties_destination)
     mongo_connection = MongoConnection(db_properties_source)
-    database_status = pre_run_check(postgres_connection)
+    database_status = pre_run_check(postgres_connection, mongo_connection)
 
     if database_status is True:
         extraction_instance = Extract(mongo_connection.get_client())
@@ -50,16 +50,16 @@ def run():
         log.message.info_migrated_completed()
 
 
-def pre_run_check(postgres_connection):
+def pre_run_check(postgres_connection, mongo_connection):
     postgres_status = postgres_connection.check_connection()
-    # TODO: Check for mongo connection
-    mongo_status = True
+    mongo_status = mongo_connection.check_connection()
     if postgres_status and mongo_status:
         return True
-    elif not postgres_status:
-        log.message.error_conn(postgres_connection.get_db_properties(), 'destination')
-        return False
-    elif not mongo_status:
+    else:
+        if not mongo_status:
+            log.message.error_conn(mongo_connection.get_db_properties(), 'source')
+        if not postgres_status:
+            log.message.error_conn(postgres_connection.get_db_properties(), 'destination')
         return False
 
 
@@ -88,4 +88,7 @@ def initialize_source():
 
 
 if __name__ == '__main__':
-    run()
+    try:
+        run()
+    except Exception as e:
+        log.message.log_stack_trace(e)

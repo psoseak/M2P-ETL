@@ -1,4 +1,5 @@
 from transform.mongo_postgres_transform import Transform
+import util as log
 
 
 class Extract:
@@ -29,13 +30,19 @@ class Extract:
     def extract_data_from_database(self, database_name):
         # initialize data transform
         data_transformer = Transform()
-        database = self.client[database_name]
-
         extracted_data = {}
+
+        database = self.client[database_name]
+        if not database.collection_names():
+            log.message.info_extraction_database_empty(database_name)
 
         for collection_name in database.collection_names():
             field_key_list = []
             collection = database[collection_name]
+
+            if collection.count() == 0:
+                log.message.info_extraction_collection_empty(self.client.db_properties, collection_name)
+
             document_first = collection.find_one()
             if document_first is not None:
                 for key in document_first.keys():

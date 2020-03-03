@@ -20,7 +20,8 @@ class PostgresConnection:
                                     port=self.db_properties.port, connect_timeout=5)
             conn.close()
             return True
-        except:
+        except Exception as e:
+            log.message.log_stack_trace(e)
             return False
 
     def create_engine_config(self):
@@ -39,6 +40,7 @@ class PostgresConnection:
         try:
             engine.connect()
             return engine
-        except sa.exc.SQLAlchemyError:
+        except sa.exc.SQLAlchemyError as e:
             log.message.error_conn(self.db_properties, 'destination')
+            log.message.log_stack_trace(e)
             return None
