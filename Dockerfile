@@ -1,10 +1,16 @@
-FROM python:3.8.1-slim
+FROM python:3.8.2-slim
 LABEL maintainer="PSO SEAK"
 
 # Base setup
 WORKDIR /app
 COPY . /app
-RUN pip3 install --no-cache-dir -r /app/requirements.txt
+RUN \
+    # Update OS
+    apt-get -y update && \
+    apt-get -y upgrade && \
+    \
+    # Install python dependencies
+    pip3 install --no-cache-dir -r /app/requirements.txt
 
 ENV SRC_HOSTNAME="" \
     SRC_PORT="" \
