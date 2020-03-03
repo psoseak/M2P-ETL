@@ -4,8 +4,8 @@ from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
 from connection.postgres_connection import PostgresConnection
 from extract.mongo_extract import Extract
+from load.postgres import PostgresLoad
 from transform.mongo_postgres_transform import Transform
-from load.postgres import upsert_table, delete_all_by_schema, check_schema_exist
 import pandas as pd
 import util as log
 
@@ -28,20 +28,21 @@ def run():
 
     # initialize postgres_conenction
     postgres_connection = PostgresConnection(db_properties_destination)
+    postgres_load = PostgresLoad(postgres_connection)
 
     # pre-check for destination database
-    delete_all_by_schema(postgres_connection)
-    check_schema_exist(postgres_connection)
+    postgres_load.delete_all_by_schema()
+    postgres_load.check_schema_exist()
     for collection in wekan_data:
         if type(wekan_data[collection]) is pd.DataFrame:
-            upsert_table(wekan_data[collection], collection, postgres_connection)
+            postgres_load.upsert_table(wekan_data[collection], collection)
         else:
             collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection]).applymap(
                 str)
             if collection_data_frame.size > 0:
                 collection_data_frame = collection_data_frame.set_index("_id")
 
-            upsert_table(collection_data_frame, collection, postgres_connection)
+            postgres_load.upsert_table(collection_data_frame, collection)
 
     log.message.info_migrated_completed()
 
