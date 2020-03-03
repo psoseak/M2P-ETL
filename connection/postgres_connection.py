@@ -1,5 +1,6 @@
 import sqlalchemy as sa
 import util as log
+import psycopg2
 
 
 class PostgresConnection:
@@ -11,6 +12,16 @@ class PostgresConnection:
 
     def dispose_engine(self, engine):
         engine.dispose()
+
+    def check_connection(self):
+        try:
+            conn = psycopg2.connect(database=self.db_properties.db, user=self.db_properties.user,
+                                    password=self.db_properties.password, host=self.db_properties.hostname,
+                                    port=self.db_properties.port, connect_timeout=5)
+            conn.close()
+            return True
+        except:
+            return False
 
     def create_engine_config(self):
         engine = None
@@ -29,5 +40,5 @@ class PostgresConnection:
             engine.connect()
             return engine
         except sa.exc.SQLAlchemyError:
-            log.message.error_conn(self)
+            log.message.error_conn(self.db_properties, 'destination')
             return None
