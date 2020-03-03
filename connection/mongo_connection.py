@@ -1,6 +1,7 @@
 import pymongo
 import util as log
 
+
 class MongoConnection:
 
     def __init__(self, db_properties):
@@ -14,7 +15,7 @@ class MongoConnection:
             hostname=self.db_properties.hostname,
             port=self.db_properties.port
         )
-        mongo_client = pymongo.MongoClient(parameter_string, serverSelectionTimeoutMS = 2000)
+        mongo_client = pymongo.MongoClient(parameter_string, serverSelectionTimeoutMS=2000)
         return mongo_client
 
     def check_connection(self):
@@ -28,6 +29,6 @@ class MongoConnection:
 
     def get_client(self):
         return self.client
-    
+
     def get_db_properties(self):
         return self.db_properties

@@ -16,7 +16,6 @@ def run():
     db_properties_source = initialize_source()
     db_properties_destination = initialize_destination()
 
-    # TODO: test all database before extracting
     postgres_connection = PostgresConnection(db_properties_destination)
     mongo_connection = MongoConnection(db_properties_source)
     database_status = pre_run_check(postgres_connection, mongo_connection)
@@ -40,8 +39,7 @@ def run():
                 postgres_load.upsert_table(wekan_data[collection], collection)
             else:
                 collection_data_frame = data_transformer.convert_dictionary_to_data_frame(
-                    wekan_data[collection]).applymap(
-                    str)
+                    wekan_data[collection]).applymap(str)
                 if collection_data_frame.size > 0:
                     collection_data_frame = collection_data_frame.set_index("_id")
 
@@ -65,7 +63,6 @@ def pre_run_check(postgres_connection, mongo_connection):
 
 def initialize_destination():
     # get env variables
-    # TODO: add scheme for destination
     DEST_HOSTNAME = os.getenv('DEST_HOSTNAME')
     DEST_PORT = os.getenv('DEST_PORT')
     DEST_DB = os.getenv('DEST_DB')
