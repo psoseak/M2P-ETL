@@ -17,34 +17,50 @@ def run():
     db_properties_destination = initialize_destination()
 
     # TODO: test all database before extracting
-
-    mongo_connection = MongoConnection(db_properties_source)
-    extraction_instance = Extract(mongo_connection.get_client())
-    wekan_data = extraction_instance.extract_data_from_database(db_properties_source.db)
-    log.message.info_database_connected()
-
-    # initialize seeding variables
-    data_transformer = Transform()
-
-    # initialize postgres_conenction
     postgres_connection = PostgresConnection(db_properties_destination)
-    postgres_load = PostgresLoad(postgres_connection)
+    mongo_connection = MongoConnection(db_properties_source)
+    database_status = pre_run_check(postgres_connection)
 
-    # pre-check for destination database
-    postgres_load.delete_all_by_schema()
-    postgres_load.check_schema_exist()
-    for collection in wekan_data:
-        if type(wekan_data[collection]) is pd.DataFrame:
-            postgres_load.upsert_table(wekan_data[collection], collection)
-        else:
-            collection_data_frame = data_transformer.convert_dictionary_to_data_frame(wekan_data[collection]).applymap(
-                str)
-            if collection_data_frame.size > 0:
-                collection_data_frame = collection_data_frame.set_index("_id")
+    if database_status is True:
+        extraction_instance = Extract(mongo_connection.get_client())
+        wekan_data = extraction_instance.extract_data_from_database(db_properties_source.db)
+        log.message.info_database_connected()
 
-            postgres_load.upsert_table(collection_data_frame, collection)
+        # initialize seeding variables
+        data_transformer = Transform()
 
-    log.message.info_migrated_completed()
+        # initialize postgres_connection
+        postgres_load = PostgresLoad(postgres_connection)
+
+        # pre-check for destination database
+        postgres_load.delete_all_by_schema()
+        postgres_load.check_schema_exist()
+        for collection in wekan_data:
+            if type(wekan_data[collection]) is pd.DataFrame:
+                postgres_load.upsert_table(wekan_data[collection], collection)
+            else:
+                collection_data_frame = data_transformer.convert_dictionary_to_data_frame(
+                    wekan_data[collection]).applymap(
+                    str)
+                if collection_data_frame.size > 0:
+                    collection_data_frame = collection_data_frame.set_index("_id")
+
+                postgres_load.upsert_table(collection_data_frame, collection)
+
+        log.message.info_migrated_completed()
+
+
+def pre_run_check(postgres_connection):
+    postgres_status = postgres_connection.check_connection()
+    # TODO: Check for mongo connection
+    mongo_status = True
+    if postgres_status and mongo_status:
+        return True
+    elif not postgres_status:
+        log.message.error_conn(postgres_connection.get_db_properties(), 'destination')
+        return False
+    elif not mongo_status:
+        return False
 
 
 def initialize_destination():

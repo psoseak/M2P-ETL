@@ -9,8 +9,9 @@ def initialize():
     )
 
 
-def error_conn(db_properties):
-    msg = 'Failed to connect to: {hostname}:{port}, {db}'.format(
+def error_conn(db_properties, db_type):
+    msg = 'Failed to connect to {type}: {hostname}:{port}, {db}'.format(
+        type=db_type,
         hostname=db_properties.hostname,
         port=db_properties.port,
         db=db_properties.db
