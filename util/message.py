@@ -8,13 +8,15 @@ def initialize():
         datefmt='%Y-%m-%d %H:%M:%S',
     )
 
+
 def log_stack_trace(encountered_exception):
     msg = 'Logging Stack Trace: {exception}.'.format(
-        exception = encountered_exception
+        exception=encountered_exception
     )
 
     initialize()
     logging.debug(msg)
+
 
 def error_conn(db_properties, db_type):
     msg = 'Failed to connect to {type}: {hostname}:{port}, {db}'.format(
@@ -25,6 +27,7 @@ def error_conn(db_properties, db_type):
     )
     initialize()
     logging.warning(msg)
+
 
 def warning_no_schema(db_properties):
     msg = 'Warning no schema [{schema}] at {hostname}:{port}, {db}'.format(
@@ -41,12 +44,14 @@ def warning_no_schema(db_properties):
     )
     logging.info(msg)
 
+
 def info_extraction_database_empty(db_properties, db_name):
     msg = 'Extracting empty database: {db}'.format(
         db=db_name
     )
     initialize()
     logging.warning(msg)
+
 
 def info_extraction_collection_empty(db_properties, collection_name):
     msg = 'Extracting empty collection: {collection}'.format(
@@ -72,4 +77,3 @@ def info_migrated_completed():
     initialize()
 
     logging.info('Migrated database successfully. :)')
-
