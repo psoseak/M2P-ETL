@@ -29,15 +29,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install pylint
           python lint.py --path ../M2P-ETL --threshold 5
-
-      # dockerize
+          
       - name: Dockerize
         run: docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:latest
 
       - name: Push To Registry
         run: |
           docker login -u ${{ secrets.QUAY_IO_USERID }} -p ${{ secrets.QUAY_IO_PASSWD }} quay.io
-          echo 'done login'
           docker push quay.io/psoseak/m2p-etl:latest
-          echo 'completed push'
           docker logout
