@@ -20,9 +20,9 @@ jobs:
           sudo apt-get install python3-setuptools
 
       - name: Test
-          run: |
-            echo $RELEASE_VERSION
-            echo ${{ env.RELEASE_VERSION }}
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
 
       - name: Pylint
         run: |
