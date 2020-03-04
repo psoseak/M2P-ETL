@@ -10,11 +10,12 @@ def initialize():
 
 
 def log_stack_trace(encountered_exception, file_name, line_number):
-    msg = 'Logging Stack Trace: {encountered_exception}. Error in {file_name} at Line {line_number}'.format(
-        encountered_exception=encountered_exception,
-        file_name=file_name,
-        line_number=line_number
-    )
+    msg = 'Logging Stack Trace: {encountered_exception}. ' \
+          'Error in {file_name} at Line {line_number}' \
+        .format(encountered_exception=encountered_exception,
+                file_name=file_name,
+                line_number=line_number
+                )
 
     initialize()
     logging.debug(msg)

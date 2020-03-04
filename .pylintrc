@@ -4,9 +4,17 @@ disable=
     C0115,
     C0116,
     C0103,
+    R0903,
+    R0913,
+    R1705,
+    R1720,
 
 
 # C0103: Variable name "DEST_HOSTNAME" doesn't conform to snake_case naming style (invalid-name)
-# C0114 (missing-module-docstring)
-# C0115 (missing-class-docstring)
-# C0116 (missing-function-docstring)
+# C0114: (missing-module-docstring)
+# C0115: (missing-class-docstring)
+# C0116: (missing-function-docstring)
+# R1705: Unnecessary "else" after "return" (no-else-return)
+# R1720: Unnecessary "else" after "raise" (no-else-raise)
+# R0913: Too many arguments (7/5) (too-many-arguments)
+# R0903: Too few public methods (0/2) (too-few-public-methods)

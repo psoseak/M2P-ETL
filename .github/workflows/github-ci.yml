@@ -28,7 +28,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pylint
-          python lint.py --path ../M2P-ETL --threshold 5
+          python lint.py --path ../M2P-ETL --threshold 9.5
           
       - name: Dockerize
         run: docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:latest

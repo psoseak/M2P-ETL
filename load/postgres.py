@@ -1,5 +1,7 @@
 import util as log
 
+from connection.postgres_connection import dispose_engine
+
 
 class PostgresLoad:
     def __init__(self, postgres_connection):
@@ -12,7 +14,7 @@ class PostgresLoad:
             data_frame.to_sql(table_name, con=engine, if_exists='replace')
 
             # Try to close connection
-            self.postgres_connection.dispose_engine(engine)
+            dispose_engine(engine)
 
     def check_schema_exist(self):
         engine = self.postgres_connection.create_engine_config()

@@ -1,8 +1,13 @@
 import sys
 import os
 import sqlalchemy as sa
-import util as log
 import psycopg2
+import util as log
+
+
+def dispose_engine(engine):
+    engine.dispose()
+
 
 class PostgresConnection:
     def __init__(self, db_properties):
@@ -10,9 +15,6 @@ class PostgresConnection:
 
     def get_db_properties(self):
         return self.db_properties
-
-    def dispose_engine(self, engine):
-        engine.dispose()
 
     def check_connection(self):
         try:
@@ -24,16 +26,10 @@ class PostgresConnection:
                                     connect_timeout=5)
             conn.close()
             return True
-<<<<<<< HEAD
-        except Exception as caught_exception:
+        except sa.exc.SQLAlchemyError as err:
             exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            log.message.log_stack_trace(caught_exception, fname, exc_tb.tb_lineno)
-=======
-        except Exception as err:
-            log.message.log_stack_trace(err)
->>>>>>> - test pipeline rating
-            return False
+            file_name = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            log.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)
 
     def create_engine_config(self):
         if self.db_properties.schema is not None:
@@ -43,7 +39,7 @@ class PostgresConnection:
                 self.db_properties.password,
                 self.db_properties.hostname,
                 self.db_properties.port,
-                self.db_properties.db),\
+                self.db_properties.db), \
                 connect_args={'options': '-csearch_path={}'.format(self.db_properties.schema)})
         else:
             engine = sa.create_engine("postgresql+psycopg2://{}:{}@{}:{}/{}".format(
@@ -53,15 +49,8 @@ class PostgresConnection:
         try:
             engine.connect()
             return engine
-<<<<<<< HEAD
-        except sa.exc.SQLAlchemyError as caught_exception:
-            log.message.error_conn(self.db_properties, 'destination')
-            exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            log.message.log_stack_trace(caught_exception, fname, exc_tb.tb_lineno)
-=======
         except sa.exc.SQLAlchemyError as err:
             log.message.error_conn(self.db_properties, 'destination')
-            log.message.log_stack_trace(err)
->>>>>>> - test pipeline rating
-            return None
+            exc_tb = sys.exc_info()
+            file_name = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            log.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)

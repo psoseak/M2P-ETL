@@ -1,5 +1,7 @@
 import argparse
 import logging
+import sys
+
 from pylint.lint import Run
 
 logging.getLogger().setLevel(logging.INFO)
@@ -27,22 +29,21 @@ path = str(args.path)
 threshold = float(args.threshold)
 
 logging.info('PyLint Starting | '
-             'Path: {} | '
-             'Threshold: {} '.format(path, threshold))
+             'Path: %path} | '
+             'Threshold: %threshold} ',
+             path=path, threshold=threshold)
 
 results = Run([path], do_exit=False)
 
 final_score = results.linter.stats['global_note']
 
 if final_score < threshold:
-
     message = ('PyLint Failed | '
                'Score: {} | '
                'Threshold: {} '.format(final_score, threshold))
 
     logging.error(message)
     raise Exception(message)
-
 else:
     message = ('PyLint Passed | '
                'Score: {} | '
@@ -50,4 +51,4 @@ else:
 
     logging.info(message)
 
-    exit(0)
+    sys.exit(0)
