@@ -13,6 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # code smell the project
+      - name: Install Requirements
+        run: |
+          python3 -m pip install --upgrade pip
+          sudo apt-get install python3-setuptools
+
       - name: Pylint
         run: |
           pip3 install --no-cache-dir -r requirements.txt
