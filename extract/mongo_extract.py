@@ -54,7 +54,7 @@ class Extract:
                         df_new = data_transformer.convert_list_dictionary_to_dataframe(collection_fields,
                                                                                        key, collection_name)
                         # df_new = self.create_new_schema(collection_fields, key, collection_name)
-                        extracted_data['list_' + collection_name + '_' + key] = df_new
+                        extracted_data['link_' + collection_name + '_' + key] = df_new
 
             # continue
             extracted_collection = {}

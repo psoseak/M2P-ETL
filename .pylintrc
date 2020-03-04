@@ -1,0 +1,12 @@
+[MASTER]
+disable=
+    C0114,
+    C0115,
+    C0116,
+    C0103,
+
+
+# C0103: Variable name "DEST_HOSTNAME" doesn't conform to snake_case naming style (invalid-name)
+# C0114 (missing-module-docstring)
+# C0115 (missing-class-docstring)
+# C0116 (missing-function-docstring)
