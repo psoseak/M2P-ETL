@@ -24,6 +24,10 @@ jobs:
           python3 -m pip install --upgrade pip
           sudo apt-get install python3-setuptools
 
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
       - name: Pylint
         run: |
           pip3 install --no-cache-dir -r requirements.txt
