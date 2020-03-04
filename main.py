@@ -1,4 +1,4 @@
-import os
+import sys, os
 
 from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
@@ -88,4 +88,6 @@ if __name__ == '__main__':
     try:
         run()
     except Exception as e:
-        log.message.log_stack_trace(e)
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        log.message.log_stack_trace(e, fname, exc_tb.tb_lineno)

@@ -1,6 +1,7 @@
 import sqlalchemy as sa
 import util as log
 import psycopg2
+import sys, os
 
 
 class PostgresConnection:
@@ -42,5 +43,7 @@ class PostgresConnection:
             return engine
         except sa.exc.SQLAlchemyError as e:
             log.message.error_conn(self.db_properties, 'destination')
-            log.message.log_stack_trace(e)
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            log.message.log_stack_trace(e, fname, exc_tb.tb_lineno)
             return None
