@@ -26,7 +26,7 @@ class Extract:
             document_first = collection.find_one()
             if document_first is not None:
                 for key in document_first.keys():
-                    if isinstance(document_first[key]) is list:
+                    if isinstance(document_first[key], list):
                         field_key_list.append(key)
 
                         # current dictionary
