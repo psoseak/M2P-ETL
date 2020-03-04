@@ -4,7 +4,7 @@ Mongo to Postgres ETL
 ## Getting started
 ### Prerequisites
 - Docker version 19.03.5, build 633a0ea
-- Python 3.8.1
+- Python 3.8.2
 
 ### Start mongo and postgres
 #### Docker-Compose 
