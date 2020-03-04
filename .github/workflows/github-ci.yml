@@ -19,9 +19,10 @@ jobs:
           python3 -m pip install --upgrade pip
           sudo apt-get install python3-setuptools
 
-      - name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+      - name: Test
+          run: |
+            echo $RELEASE_VERSION
+            echo ${{ env.RELEASE_VERSION }}
 
       - name: Pylint
         run: |
