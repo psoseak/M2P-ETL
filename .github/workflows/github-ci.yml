@@ -28,8 +28,7 @@ jobs:
 
       - name: Pylint
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 freeze
+          pip freeze
           python3 lint.py --path ../M2P-ETL --threshold 9.5
           
       - name: Dockerize
