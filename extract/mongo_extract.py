@@ -7,26 +7,6 @@ class Extract:
         self.client = client
         self.database_names = client.database_names()
 
-    def print_all_databases(self):
-        print(str(self.database_names))
-
-    def print_all_collections_in_database(self, database_name):
-        database = self.client[database_name]
-        for collection_name in database.collection_names():
-            print(collection_name)
-            collection = database[collection_name]
-            self.print_single_collection(collection)
-
-    def print_single_collection(self, collection):
-        for document in collection.find():
-            print(document)
-
-    def delete_database(self, database_name):
-        self.client.drop_database(database_name)
-
-    def create_database(self, database_name):
-        return self.client[database_name]
-
     def extract_data_from_database(self, database_name):
         # initialize data transform
         data_transformer = Transform()
@@ -46,7 +26,7 @@ class Extract:
             document_first = collection.find_one()
             if document_first is not None:
                 for key in document_first.keys():
-                    if type(document_first[key]) is list:
+                    if isinstance(document_first[key]) is list:
                         field_key_list.append(key)
 
                         # current dictionary

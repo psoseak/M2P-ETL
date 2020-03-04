@@ -4,9 +4,9 @@ import pandas as pd
 class Transform:
 
     def convert_dictionary_to_data_frame(self, py_dict):
-        df = pd.DataFrame.from_dict(py_dict, orient='index')
-        df.transpose()
-        return df
+        data_frame = pd.DataFrame.from_dict(py_dict, orient='index')
+        data_frame.transpose()
+        return data_frame
 
     def convert_list_dictionary_to_dataframe(self, data, key, collection_name):
         df_all = None
