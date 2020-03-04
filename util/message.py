@@ -10,11 +10,12 @@ def initialize():
 
 
 def log_stack_trace(encountered_exception, file_name, line_number):
-    msg = 'Logging Stack Trace: {encountered_exception}. Error in {file_name} at Line {line_number}'.format(
-        encountered_exception=encountered_exception,
-        file_name=file_name,
-        line_number=line_number
-    )
+    msg = 'Logging Stack Trace: {encountered_exception}. ' \
+          'Error in {file_name} at Line {line_number}' \
+        .format(encountered_exception=encountered_exception,
+                file_name=file_name,
+                line_number=line_number
+                )
 
     initialize()
     logging.debug(msg)
@@ -55,7 +56,7 @@ def info_extraction_database_empty(db_name):
     logging.warning(msg)
 
 
-def info_extraction_collection_empty(db_properties, collection_name):
+def info_extraction_collection_empty(collection_name):
     msg = 'Extracting empty collection: {collection}'.format(
         collection=collection_name
     )

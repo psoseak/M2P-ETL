@@ -1,4 +1,4 @@
-from transform.mongo_postgres_transform import Transform
+from transform.mongo_postgres_transform import convert_list_dictionary_to_dataframe
 import util as log
 
 
@@ -8,8 +8,6 @@ class Extract:
         self.database_names = client.database_names()
 
     def extract_data_from_database(self, database_name):
-        # initialize data transform
-        data_transformer = Transform()
         extracted_data = {}
 
         database = self.client[database_name]
@@ -21,7 +19,7 @@ class Extract:
             collection = database[collection_name]
 
             if collection.count() == 0:
-                log.message.info_extraction_collection_empty(self.client.db_properties, collection_name)
+                log.message.info_extraction_collection_empty(collection_name)
 
             document_first = collection.find_one()
             if document_first is not None:
@@ -31,10 +29,10 @@ class Extract:
 
                         # current dictionary
                         collection_fields = collection.find({}, {'_id': 1, key: 1})
-                        df_new = data_transformer.convert_list_dictionary_to_dataframe(collection_fields,
-                                                                                       key, collection_name)
+                        df_new = convert_list_dictionary_to_dataframe(
+                            collection_fields, key, collection_name)
                         # df_new = self.create_new_schema(collection_fields, key, collection_name)
-                        extracted_data['list_' + collection_name + '_' + key] = df_new
+                        extracted_data['link_' + collection_name + '_' + key] = df_new
 
             # continue
             extracted_collection = {}
