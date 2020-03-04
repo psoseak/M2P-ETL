@@ -55,7 +55,7 @@ def info_extraction_database_empty(db_name):
     logging.warning(msg)
 
 
-def info_extraction_collection_empty(db_properties, collection_name):
+def info_extraction_collection_empty(collection_name):
     msg = 'Extracting empty collection: {collection}'.format(
         collection=collection_name
     )

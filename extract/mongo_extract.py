@@ -21,7 +21,7 @@ class Extract:
             collection = database[collection_name]
 
             if collection.count() == 0:
-                log.message.info_extraction_collection_empty(self.client.db_properties, collection_name)
+                log.message.info_extraction_collection_empty(collection_name)
 
             document_first = collection.find_one()
             if document_first is not None:
