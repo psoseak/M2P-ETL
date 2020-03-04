@@ -13,19 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # code smell the project
-      - name: Install Requirements
-        run: |
-          python3 -m pip install --upgrade pip
-          sudo apt-get install python3-setuptools
-          pip3 install pylint
-          pip3 install --no-cache-dir -r requirements.txt
-
-      - name: Set up Python 3.8.2
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8.2
-
       - name: Pylint
         run: |
           pip3 install --no-cache-dir -r requirements.txt
