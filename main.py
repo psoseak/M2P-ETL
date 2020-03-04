@@ -1,4 +1,3 @@
-import sys, os
 
 from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
@@ -8,6 +7,8 @@ from load.postgres import PostgresLoad
 from transform.mongo_postgres_transform import Transform
 import pandas as pd
 import util as log
+import sys
+import os
 
 
 def run():
@@ -87,7 +88,7 @@ def initialize_source():
 if __name__ == '__main__':
     try:
         run()
-    except Exception as e:
+    except Exception as caught_exception:
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        log.message.log_stack_trace(e, fname, exc_tb.tb_lineno)
+        log.message.log_stack_trace(caught_exception, fname, exc_tb.tb_lineno)

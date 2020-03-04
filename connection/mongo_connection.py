@@ -1,6 +1,7 @@
 import pymongo
 import util as log
-import sys, os
+import sys
+import os
 
 
 class MongoConnection:
@@ -24,10 +25,10 @@ class MongoConnection:
         try:
             mongo_client.server_info()
             return True
-        except Exception as e:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            log.message.log_stack_trace(e, fname, exc_tb.tb_lineno)
+        except Exception as caught_exception:
+            EXC_TYPE, EXC_OBJ, EXC_TB = sys.exc_info()
+            FILE_NAME = os.path.split(EXC_TB.tb_frame.f_code.co_filename)[1]
+            log.message.log_stack_trace(caught_exception, FILE_NAME, EXC_TB.tb_lineno)
             return False
 
     def get_client(self):
