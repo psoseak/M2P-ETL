@@ -29,9 +29,8 @@ path = str(args.path)
 threshold = float(args.threshold)
 
 logging.info('PyLint Starting | '
-             'Path: %path} | '
-             'Threshold: %threshold} ',
-             path=path, threshold=threshold)
+             'Path: {} | '
+             'Threshold: {} '.format(path, threshold))
 
 results = Run([path], do_exit=False)
 
