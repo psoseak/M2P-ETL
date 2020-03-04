@@ -7,12 +7,6 @@ class Extract:
         self.client = client
         self.database_names = client.database_names()
 
-    def delete_database(self, database_name):
-        self.client.drop_database(database_name)
-
-    def create_database(self, database_name):
-        return self.client[database_name]
-
     def extract_data_from_database(self, database_name):
         # initialize data transform
         data_transformer = Transform()

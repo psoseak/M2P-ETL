@@ -1,9 +1,8 @@
+import sys
+import os
 import sqlalchemy as sa
 import util as log
 import psycopg2
-import sys
-import os
-
 
 class PostgresConnection:
     def __init__(self, db_properties):
@@ -22,8 +21,10 @@ class PostgresConnection:
                                     port=self.db_properties.port, connect_timeout=5)
             conn.close()
             return True
-        except Exception as e:
-            log.message.log_stack_trace(e)
+        except Exception as caught_exception:
+            exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            log.message.log_stack_trace(caught_exception, fname, exc_tb.tb_lineno)
             return False
 
     def create_engine_config(self):
@@ -44,7 +45,7 @@ class PostgresConnection:
             return engine
         except sa.exc.SQLAlchemyError as caught_exception:
             log.message.error_conn(self.db_properties, 'destination')
-            exc_type, exc_obj, exc_tb = sys.exc_info()
+            exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             log.message.log_stack_trace(caught_exception, fname, exc_tb.tb_lineno)
             return None

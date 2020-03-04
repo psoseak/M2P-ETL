@@ -1,4 +1,5 @@
-
+import sys
+import os
 from connection.db_config import DbProperties
 from connection.mongo_connection import MongoConnection
 from connection.postgres_connection import PostgresConnection
@@ -7,8 +8,7 @@ from load.postgres import PostgresLoad
 from transform.mongo_postgres_transform import Transform
 import pandas as pd
 import util as log
-import sys
-import os
+
 
 
 def run():
