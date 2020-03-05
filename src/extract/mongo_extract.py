@@ -1,6 +1,5 @@
 from transform.mongo_postgres_transform import convert_list_dictionary_to_dataframe
-from util.message import *
-
+import util as log
 
 class Extract:
     def __init__(self, client):
@@ -12,14 +11,14 @@ class Extract:
 
         database = self.client[database_name]
         if not database.collection_names():
-            info_extraction_database_empty(database_name)
+            log.message.info_extraction_database_empty(database_name)
 
         for collection_name in database.collection_names():
             field_key_list = []
             collection = database[collection_name]
 
             if collection.count() == 0:
-                info_extraction_collection_empty(collection_name)
+                log.message.info_extraction_collection_empty(collection_name)
 
             document_first = collection.find_one()
             if document_first is not None:

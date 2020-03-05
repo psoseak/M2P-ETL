@@ -2,6 +2,7 @@ import sys
 import os
 import sqlalchemy as sa
 import psycopg2
+import util as log
 
 
 def dispose_engine(engine):
@@ -28,7 +29,7 @@ class PostgresConnection:
         except sa.exc.SQLAlchemyError as err:
             exc_tb = sys.exc_info()
             file_name = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            src.util.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)
+            log.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)
 
     def create_engine_config(self):
         if self.db_properties.schema is not None:
@@ -49,7 +50,7 @@ class PostgresConnection:
             engine.connect()
             return engine
         except sa.exc.SQLAlchemyError as err:
-            src.util.message.error_conn(self.db_properties, 'destination')
+            log.message.error_conn(self.db_properties, 'destination')
             exc_tb = sys.exc_info()
             file_name = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            src.util.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)
+            log.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)

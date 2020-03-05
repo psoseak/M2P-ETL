@@ -7,12 +7,12 @@ from connection.postgres_connection import PostgresConnection
 from extract.mongo_extract import Extract
 from load.postgres import PostgresLoad
 from transform.mongo_postgres_transform import convert_dictionary_to_data_frame
-from util.message import *
+import util as log
 
 
 def run():
     # define the database properties
-    info_start()
+    log.message.info_start()
     db_properties_source = initialize_source()
     db_properties_destination = initialize_destination()
 
@@ -23,7 +23,7 @@ def run():
     if database_status is True:
         extraction_instance = Extract(mongo_connection.get_client())
         wekan_data = extraction_instance.extract_data_from_database(db_properties_source.db)
-        info_database_connected()
+        log.message.info_database_connected()
 
         # initialize postgres_connection
         postgres_load = PostgresLoad(postgres_connection)
@@ -42,7 +42,7 @@ def run():
 
                 postgres_load.upsert_table(collection_data_frame, collection)
 
-        info_migrated_completed()
+        log.message.info_migrated_completed()
 
 
 def pre_run_check(postgres_connection, mongo_connection):
@@ -52,9 +52,9 @@ def pre_run_check(postgres_connection, mongo_connection):
         return True
     else:
         if not mongo_status:
-            error_conn(mongo_connection.get_db_properties(), 'source')
+            log.message.error_conn(mongo_connection.get_db_properties(), 'source')
         if not postgres_status:
-            error_conn(postgres_connection.get_db_properties(), 'destination')
+            log.message.error_conn(postgres_connection.get_db_properties(), 'destination')
         return False
 
 
@@ -91,4 +91,4 @@ if __name__ == '__main__':
     except RuntimeError as err:
         exc_type, exc_obj, exc_tb = sys.exc_info()
         file_name = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        src.util.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)
+        log.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)

@@ -1,6 +1,7 @@
 import sys
 import os
 import pymongo
+import util as log
 
 
 class MongoConnection:
@@ -27,7 +28,7 @@ class MongoConnection:
         except pymongo.errors.ServerSelectionTimeoutError as err:
             exc_tb = sys.exc_info()
             file_name = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            src.util.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)
+            log.message.log_stack_trace(err, file_name, exc_tb.tb_lineno)
             return False
 
     def get_client(self):
