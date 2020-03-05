@@ -1,7 +1,10 @@
 name: M2P-ETL
 
 # trigger the workflow when someone pushes the code to repo
-on: [push]
+on:
+  push:
+    branches:
+      - chore/pipeline-update-tag
 
 jobs:
   build:
