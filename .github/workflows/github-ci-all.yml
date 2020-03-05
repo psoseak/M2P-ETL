@@ -1,4 +1,4 @@
-name: M2P-ETL
+name: M2P-ETL-ALL
 
 # trigger the workflow when someone pushes the code to repo
 on:
