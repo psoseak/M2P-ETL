@@ -17,8 +17,7 @@ jobs:
       - name: Get the version
         id: get_version
         run: |
-          echo ::set-output name=tag::${GITHUB_REF:10}
-          echo '---'
+          echo '::tag::'
           echo ${GITHUB_REF:10}
 
       # code smell the project
