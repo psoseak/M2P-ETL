@@ -1,7 +1,6 @@
 from transform.mongo_postgres_transform import convert_list_dictionary_to_dataframe
 import util as log
 
-
 class Extract:
     def __init__(self, client):
         self.client = client
