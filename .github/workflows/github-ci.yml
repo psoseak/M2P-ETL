@@ -28,7 +28,7 @@ jobs:
         run: |
           pip3 install --no-cache-dir -r requirements.txt
           pip3 freeze
-          python3 ./src/lint.py --path ../src --threshold 9.5
+          python3 ./src/lint.py --path ./src --threshold 9.5
           
       - name: Dockerize
         run: docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:latest
