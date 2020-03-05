@@ -16,7 +16,10 @@ jobs:
       # get commit tag
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: |
+          echo ::set-output name=tag::${GITHUB_REF:10}
+          echo '---'
+          echo ${GITHUB_REF:10}
 
       # code smell the project
       - name: Install Requirements
