@@ -1,5 +1,5 @@
-from src.transform.mongo_postgres_transform import convert_list_dictionary_to_dataframe
-from src.util.message import *
+from transform.mongo_postgres_transform import convert_list_dictionary_to_dataframe
+from util.message import *
 
 
 class Extract:

@@ -1,13 +1,13 @@
 import sys
 import os
 import pandas as pd
-from src.connection.db_config import DbProperties
-from src.connection.mongo_connection import MongoConnection
-from src.connection.postgres_connection import PostgresConnection
-from src.extract.mongo_extract import Extract
-from src.load.postgres import PostgresLoad
-from src.transform.mongo_postgres_transform import convert_dictionary_to_data_frame
-from src.util.message import *
+from connection.db_config import DbProperties
+from connection.mongo_connection import MongoConnection
+from connection.postgres_connection import PostgresConnection
+from extract.mongo_extract import Extract
+from load.postgres import PostgresLoad
+from transform.mongo_postgres_transform import convert_dictionary_to_data_frame
+from util.message import *
 
 
 def run():

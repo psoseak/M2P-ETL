@@ -1,5 +1,5 @@
-from src.connection.postgres_connection import dispose_engine
-from src.util.message import *
+from connection.postgres_connection import dispose_engine
+from util.message import *
 
 
 class PostgresLoad:
