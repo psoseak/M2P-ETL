@@ -1,6 +1,5 @@
-import util as log
-
-from connection.postgres_connection import dispose_engine
+from src.connection.postgres_connection import dispose_engine
+from src.util.message import *
 
 
 class PostgresLoad:
@@ -30,7 +29,7 @@ class PostgresLoad:
                 sql_query = "CREATE SCHEMA IF NOT EXISTS {}"\
                             .format(self.postgres_connection.get_db_properties().schema)
                 engine.execute(sql_query)
-                log.message.warning_no_schema(self.postgres_connection.get_db_properties())
+                warning_no_schema(self.postgres_connection.get_db_properties())
 
     # delete all table
     def delete_all_by_schema(self):
