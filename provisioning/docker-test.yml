@@ -5,10 +5,15 @@ services:
     image: mtl:latest
     environment:
       DEST_HOSTNAME: vmware-postgres
-      DEST_PORT: 54320
-      DEST_DB: postgres
+      DEST_PORT: 5432
+      DEST_DB: wekan
       DEST_ID: root
-      DEST_PASSWORD: VMware1
+      DEST_PASSWORD: VMware1!
+      SRC_HOSTNAME: vmware-mongo
+      SRC_PORT: 27017
+      SRC_DB: wekan
+      SRC_ID: root
+      SRC_PASSWORD: VMware1!
     networks:
       - vmware-network
 
