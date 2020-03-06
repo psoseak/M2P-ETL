@@ -1,0 +1,45 @@
+name: M2P-ETL-ALL
+
+# trigger the workflow when someone pushes the code to repo
+on:
+  push:
+    branches:
+      - '*'         # matches every branch
+      - '*/*'       # matches every branch containing a single '/'
+      - '!master'   # excludes master
+      - '!stable'   # excludes stable branch
+      - 'v0.0.*'    # excludes tagging
+
+jobs:
+  build:
+    # run the below steps on a fresh instance of a virtual environment
+    runs-on: ubuntu-latest
+
+    steps:
+      # fetch and checkout the current commit
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # get commit tag
+      - name: Get the version
+        id: get_version
+        run: |
+          echo '::tag::'
+          echo ${GITHUB_REF:10}
+
+      # code smell the project
+      - name: Install Requirements
+        run: |
+          python3 -m pip install --upgrade pip
+          sudo apt-get install python3-setuptools
+
+      - name: Git Reference
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
+
+      - name: Pylint
+        run: |
+          pip3 install --no-cache-dir -r requirements.txt
+          pip3 freeze
+          python3 ./src/lint.py --path ./src --threshold 9.5

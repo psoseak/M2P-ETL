@@ -1,7 +1,10 @@
-name: M2P-ETL
+name: M2P-ETL-STABLE
 
 # trigger the workflow when someone pushes the code to repo
-on: [push]
+on:
+  create:
+    tag:
+      - 'v0.0.*'
 
 jobs:
   build:
@@ -16,13 +19,20 @@ jobs:
       # get commit tag
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: |
+          echo '::tag::'
+          echo ${GITHUB_REF:10}
 
       # code smell the project
       - name: Install Requirements
         run: |
           python3 -m pip install --upgrade pip
           sudo apt-get install python3-setuptools
+
+      - name: Git Reference
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
 
       - name: Pylint
         run: |
@@ -31,7 +41,8 @@ jobs:
           python3 ./src/lint.py --path ./src --threshold 9.5
           
       - name: Dockerize
-        run: docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:latest
+        run: |
+          docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:${{ env.RELEASE_VERSION }}
 
       - name: Push To Registry
         run: |
