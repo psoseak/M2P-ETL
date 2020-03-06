@@ -42,7 +42,7 @@ jobs:
           
       - name: Dockerize
         run: |
-          docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:${{ env.RELEASE_VERSION }}
+          docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:${GITHUB_REF:10}
 
       - name: Push To Registry
         run: |
