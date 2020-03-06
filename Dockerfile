@@ -3,7 +3,7 @@ LABEL maintainer="PSO SEAK"
 
 # Base setup
 WORKDIR /app
-COPY . /app
+COPY src/ requirements.txt /app/
 RUN \
     # Update OS
     apt-get -y update && \
@@ -23,4 +23,4 @@ ENV SRC_HOSTNAME="" \
     DEST_ID="" \
     DEST_PASSWORD=""
 
-CMD ["python3", "/app/src/main.py"]
+CMD ["python3", "/app/main.py"]
