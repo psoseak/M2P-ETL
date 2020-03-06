@@ -4,7 +4,7 @@ name: M2P-ETL-STABLE
 on:
   create:
     tag:
-      - 'v*'
+      - 'v0.0.*'
 
 jobs:
   build:
@@ -41,7 +41,8 @@ jobs:
           python3 ./src/lint.py --path ./src --threshold 9.5
           
       - name: Dockerize
-        run: docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:${{ env.RELEASE_VERSION }}
+        run: |
+          docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:${{ env.RELEASE_VERSION }}
 
       - name: Push To Registry
         run: |

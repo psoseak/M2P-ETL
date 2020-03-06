@@ -8,6 +8,7 @@ on:
       - '*/*'       # matches every branch containing a single '/'
       - '!master'   # excludes master
       - '!stable'   # excludes stable branch
+      - 'v0.0.*'    # excludes tagging
 
 jobs:
   build:
