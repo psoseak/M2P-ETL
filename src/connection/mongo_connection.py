@@ -11,12 +11,19 @@ class MongoConnection:
         self.client = self.initiate_connection()
 
     def initiate_connection(self):
-        parameter_string = "mongodb://{user}:{password}@{hostname}:{port}/".format(
-            user=self.db_properties.user,
-            password=self.db_properties.password,
-            hostname=self.db_properties.hostname,
-            port=self.db_properties.port
-        )
+        if self.db_properties.user is "" or self.db_properties.password is "":
+            # no username and password
+            parameter_string = "mongodb://{hostname}:{port}/".format(
+                hostname=self.db_properties.hostname,
+                port=self.db_properties.port
+            )
+        else:
+            parameter_string = "mongodb://{user}:{password}@{hostname}:{port}/".format(
+                user=self.db_properties.user,
+                password=self.db_properties.password,
+                hostname=self.db_properties.hostname,
+                port=self.db_properties.port
+            )
         mongo_client = pymongo.MongoClient(parameter_string, serverSelectionTimeoutMS=2000)
         return mongo_client
 
