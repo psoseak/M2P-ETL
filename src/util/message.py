@@ -32,6 +32,26 @@ def error_conn(db_properties, db_type):
     logging.warning(msg)
 
 
+def warn_db_not_found(db_properties):
+    msg = 'Database not found: {hostname}:{port}, {db}'.format(
+        hostname=db_properties.hostname,
+        port=db_properties.port,
+        db=db_properties.db
+    )
+    initialize()
+    logging.warning(msg)
+
+
+def info_db_created(db_properties):
+    msg = 'Successfully created database: {hostname}:{port}, {db}'.format(
+        hostname=db_properties.hostname,
+        port=db_properties.port,
+        db=db_properties.db
+    )
+    initialize()
+    logging.info(msg)
+
+
 def warning_no_schema(db_properties):
     msg = 'Warning no schema [{schema}] at {hostname}:{port}, {db}'.format(
         schema=db_properties.schema,

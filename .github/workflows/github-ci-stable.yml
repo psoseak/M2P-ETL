@@ -4,6 +4,7 @@ name: M2P-ETL-STABLE
 on:
   create:
     tag:
+      - '!*'         # matches every branch
       - 'v0.0.*'
 
 jobs:
