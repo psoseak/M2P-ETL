@@ -4,9 +4,9 @@ services:
   mongo-db:
     image: mongo:4.2.2
     container_name: vmware-mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: VMware1!
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: VMware1!
     ports:
       - 27017:27017
     volumes:

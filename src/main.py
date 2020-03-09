@@ -79,6 +79,9 @@ def initialize_source():
     SRC_ID = os.getenv('SRC_ID')
     SRC_PASSWORD = os.getenv('SRC_PASSWORD')
     SRC_SCHEMA = os.getenv('SRC_SCHEMA')
+    print('user: ' + SRC_ID)
+    print('db: ' + SRC_DB)
+
     db_properties_source = DbProperties(SRC_HOSTNAME, SRC_PORT,
                                         SRC_DB, SRC_ID,
                                         SRC_PASSWORD, SRC_SCHEMA)
