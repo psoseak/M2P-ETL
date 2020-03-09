@@ -11,7 +11,7 @@ class MongoConnection:
         self.client = self.initiate_connection()
 
     def initiate_connection(self):
-        if self.db_properties.user is "" or self.db_properties.password is "":
+        if self.db_properties.user == "" or self.db_properties.password == "":
             # no username and password
             parameter_string = "mongodb://{hostname}:{port}/".format(
                 hostname=self.db_properties.hostname,
