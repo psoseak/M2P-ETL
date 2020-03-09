@@ -48,6 +48,7 @@ def run():
 def pre_run_check(postgres_connection, mongo_connection):
     postgres_status = postgres_connection.check_connection()
     mongo_status = mongo_connection.check_connection()
+    postgres_connection.check_database_exist()
     if postgres_status and mongo_status:
         return True
     else:
@@ -79,8 +80,6 @@ def initialize_source():
     SRC_ID = os.getenv('SRC_ID')
     SRC_PASSWORD = os.getenv('SRC_PASSWORD')
     SRC_SCHEMA = os.getenv('SRC_SCHEMA')
-    print('user: ' + SRC_ID)
-    print('db: ' + SRC_DB)
 
     db_properties_source = DbProperties(SRC_HOSTNAME, SRC_PORT,
                                         SRC_DB, SRC_ID,
