@@ -8,6 +8,7 @@ RUN \
     # Update OS
     apt-get -y update && \
     apt-get -y upgrade && \
+    rm -rf /var/lib/apt/lists/* && \
     \
     # Install python dependencies
     pip3 install --no-cache-dir -r /app/requirements.txt
