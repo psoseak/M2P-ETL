@@ -2,10 +2,11 @@ name: M2P-ETL-STABLE
 
 # trigger the workflow when someone pushes the code to repo
 on:
-  create:
-    tag:
-      - '!*'         # matches every branch
-      - 'v0.0.*'
+  push:
+    branches:
+      - 'stable'         # matches only stable
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -37,9 +38,10 @@ jobs:
 
       - name: Pylint
         run: |
+          cd tests
           pip3 install --no-cache-dir -r requirements.txt
           pip3 freeze
-          python3 ./src/lint.py --path ./src --threshold 9.5
+          python3 lint.py --path ../src --threshold 9.5
           
       - name: Dockerize
         run: |
