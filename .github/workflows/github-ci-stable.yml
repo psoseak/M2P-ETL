@@ -38,10 +38,10 @@ jobs:
 
       - name: Pylint
         run: |
-          cd tests
-          pip3 install --no-cache-dir -r requirements.txt
+          cp ./tests/lint.py .
+          pip3 install --no-cache-dir -r ./tests/requirements.txt
           pip3 freeze
-          python3 lint.py --path ../src --threshold 9.5
+          python3 lint.py --path ./src --threshold 9.5
           
       - name: Dockerize
         run: |
