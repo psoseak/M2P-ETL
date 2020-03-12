@@ -38,13 +38,15 @@ jobs:
 
       - name: Pylint
         run: |
-          cp ./tests/lint.py .
+          cp ./tests/.pylintrc .
+          cp ./tests/lint.py ./src/
           pip3 install --no-cache-dir -r ./tests/requirements.txt
           pip3 freeze
-          python3 lint.py --path ./src --threshold 9.5
+          python3 ./src/lint.py --path ./src --threshold 9.5
           
       - name: Dockerize
         run: |
+          rm -f ./src/lint.py
           docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:${GITHUB_REF:10}
 
       - name: Push To Registry
