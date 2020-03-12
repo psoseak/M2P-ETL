@@ -37,7 +37,8 @@ jobs:
 
       - name: Pylint
         run: |
-          cp ./tests/lint.py .
+          cp ./tests/.pylintrc.py .
+          cp ./tests/lint.py ./src/
           pip3 install --no-cache-dir -r ./tests/requirements.txt
           pip3 freeze
-          python3 lint.py --path ./src --threshold 9.5
+          python3 ./src/lint.py --path ./src --threshold 9.5
