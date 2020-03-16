@@ -5,10 +5,7 @@ on:
   push:
     branches:
       - '*'         # matches every branch
-      - '*/*'       # matches every branch containing a single '/'
-      - '!master'   # excludes master
       - '!stable'   # excludes stable branch
-      - 'v0.0.*'    # excludes tagging
 
 jobs:
   build:
@@ -40,6 +37,8 @@ jobs:
 
       - name: Pylint
         run: |
+          cp ./tests/.pylintrc .
+          cp ./tests/lint.py ./src/
+          pip3 install --no-cache-dir -r ./tests/requirements.txt
           pip3 install --no-cache-dir -r requirements.txt
-          pip3 freeze
           python3 ./src/lint.py --path ./src --threshold 9.5
