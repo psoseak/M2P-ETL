@@ -64,7 +64,8 @@ def convert_dictionary_details_to_dataframe(data, key, collection_name):
                 dict_all.update({'_id_{parent}'.format(parent=collection_name): str(row_id)})
                 for item_value_loop_key, item_value_loop_value in item_value.items():
                     if isinstance(item_value_loop_value, dict):
-                        for item_value_loop_value_inside_key, item_value_loop_value_inside_value in item_value_loop_value.items():
+                        for item_value_loop_value_inside_key, item_value_loop_value_inside_value \
+                                in item_value_loop_value.items():
                             # column name
                             curr_column = '{parent}{child}'.format(
                                 parent=item_value_loop_key,
