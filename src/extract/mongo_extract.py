@@ -1,4 +1,5 @@
-from transform.mongo_postgres_transform import convert_list_dictionary_to_dataframe
+from transform.mongo_postgres_transform import convert_list_dictionary_to_dataframe, \
+    convert_dictionary_details_to_dataframe
 import util as log
 
 class Extract:
@@ -32,6 +33,14 @@ class Extract:
                             collection_fields, key, collection_name)
                         # df_new = self.create_new_schema(collection_fields, key, collection_name)
                         extracted_data['link_' + collection_name + '_' + key] = df_new
+
+                    if isinstance(document_first[key], dict):
+                        field_key_list.append(key)
+
+                        collection_fields = collection.find({}, {'_id': 1, key: 1})
+                        pd_name, df_all = convert_dictionary_details_to_dataframe(
+                            collection_fields, key, collection_name)
+                        extracted_data[pd_name] = df_all
 
             # continue
             extracted_collection = {}
