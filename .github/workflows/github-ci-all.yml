@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - '*'         # matches every branch
-      - '!stable'   # excludes stable branch
 
 jobs:
   build:
@@ -17,11 +16,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # get commit tag
-      - name: Get the version
-        id: get_version
+      - name: Show GitHub Reference
         run: |
-          echo '::tag::'
           echo ${GITHUB_REF:10}
 
       # code smell the project
@@ -30,12 +26,7 @@ jobs:
           python3 -m pip install --upgrade pip
           sudo apt-get install python3-setuptools
 
-      - name: Git Reference
-        run: |
-          echo $RELEASE_VERSION
-          echo ${{ env.RELEASE_VERSION }}
-
-      - name: Pylint
+      - name: Run Pylint
         run: |
           cp ./tests/.pylintrc .
           cp ./tests/lint.py ./src/
