@@ -6,6 +6,7 @@ disable=
     C0103,
     R0903,
     R0913,
+    R1702,
     R1705,
     R1720,
 
@@ -18,3 +19,5 @@ disable=
 # R1720: Unnecessary "else" after "raise" (no-else-raise)
 # R0913: Too many arguments (7/5) (too-many-arguments)
 # R0903: Too few public methods (0/2) (too-few-public-methods)
+# R1702: Too many nested blocks 
+# required to go deep for users table
