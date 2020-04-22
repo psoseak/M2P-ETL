@@ -73,7 +73,7 @@ def convert_dictionary_details_to_dataframe(data, key, collection_name):
                             )
                             dict_all.update({curr_column: str(item_value_loop_value_inside_value)})
                     else:
-                        dict_all.update({item_value_loop_key: item_value_loop_value})
+                        dict_all.update({item_value_loop_key: str(item_value_loop_value)})
 
                 # convert the dictionary to dataframe
                 df_curr = pd.DataFrame([dict_all])
