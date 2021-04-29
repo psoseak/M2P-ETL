@@ -32,10 +32,12 @@ def run():
         postgres_load.delete_all_by_schema()
         postgres_load.check_schema_exist()
         for collection in wekan_data:
+            print(wekan_data[collection]) # debug print to check on faulty collection
             if isinstance(wekan_data[collection], pd.DataFrame):
                 postgres_load.upsert_table(wekan_data[collection], collection)
             else:
-                collection_data_frame = convert_dictionary_to_data_frame(wekan_data[collection]).applymap(str)
+                collection_data_frame = convert_dictionary_to_data_frame(
+                    wekan_data[collection]).applymap(str)
                 if collection_data_frame.size > 0:
                     collection_data_frame = collection_data_frame.set_index("_id")
 
