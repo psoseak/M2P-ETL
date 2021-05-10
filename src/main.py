@@ -32,10 +32,10 @@ def run():
         postgres_load.delete_all_by_schema()
         postgres_load.check_schema_exist()
         for collection in wekan_data:
-            print(collection) # debug print to check on faulty collection
             if isinstance(wekan_data[collection], pd.DataFrame):
                 postgres_load.upsert_table(wekan_data[collection], collection)
             else:
+                # check for None collection, empty dicts values found in mongodb 
                 if wekan_data[collection] is not None:
                     collection_data_frame = convert_dictionary_to_data_frame(
                         wekan_data[collection]).applymap(str)
