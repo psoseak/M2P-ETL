@@ -29,6 +29,7 @@ class Extract:
 
                         # current dictionary
                         collection_fields = collection.find({}, {'_id': 1, key: 1})
+                        print(key)
                         df_new = convert_list_dictionary_to_dataframe(
                             collection_fields, key, collection_name)
                         # df_new = self.create_new_schema(collection_fields, key, collection_name)
