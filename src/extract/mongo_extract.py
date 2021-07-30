@@ -17,6 +17,7 @@ class Extract:
         for collection_name in database.collection_names():
             field_key_list = []
             collection = database[collection_name]
+            print(collection_name)
 
             if collection.count() == 0:
                 log.message.info_extraction_collection_empty(collection_name)
