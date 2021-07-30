@@ -17,7 +17,7 @@ class Extract:
         for collection_name in database.collection_names():
             field_key_list = []
             collection = database[collection_name]
-            print(collection_name)
+            print("Collection Name: " + collection_name)
 
             if collection.count() == 0:
                 log.message.info_extraction_collection_empty(collection_name)
@@ -30,7 +30,7 @@ class Extract:
 
                         # current dictionary
                         collection_fields = collection.find({}, {'_id': 1, key: 1})
-                        print(key)
+                        print("Key: " + key)
                         df_new = convert_list_dictionary_to_dataframe(
                             collection_fields, key, collection_name)
                         # df_new = self.create_new_schema(collection_fields, key, collection_name)
