@@ -1,6 +1,8 @@
 # M2P-ETL
 Mongo to Postgres ETL
 
+![Development workflow](https://github.com/psoseak/M2P-ETL/actions/workflows/github-ci-all.yml/badge.svg)
+
 ## Getting started
 ### Prerequisites
 - Docker version 19.03.5, build 633a0ea
