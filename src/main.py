@@ -90,7 +90,6 @@ def initialize_source():
                                         SRC_PASSWORD, SRC_SCHEMA)
     return db_properties_source
 
-# Test comment workflow test
 if __name__ == '__main__':
     try:
         run()
