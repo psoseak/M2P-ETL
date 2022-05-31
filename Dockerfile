@@ -11,7 +11,8 @@ RUN \
     rm -rf /var/lib/apt/lists/* && \
     \
     # Install python dependencies
-    pip3 install --no-cache-dir -r /app/requirements.txt
+    python3 -m pip install --upgrade pip && \
+    python3 -m pip install --no-cache-dir -r /app/requirements.txt
 
 ENV SRC_HOSTNAME="" \
     SRC_PORT="" \
