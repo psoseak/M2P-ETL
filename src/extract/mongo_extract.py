@@ -5,13 +5,13 @@ import util as log
 class Extract:
     def __init__(self, client):
         self.client = client
-        self.database_names = client.database_names()
+        self.database_names = client.list_database_names()
 
     def extract_data_from_database(self, database_name):
         extracted_data = {}
 
         database = self.client[database_name]
-        if not database.collection_names():
+        if not database.list_collection_names():
             log.message.info_extraction_database_empty(database_name)
 
         for collection_name in database.collection_names():
