@@ -19,7 +19,7 @@ class Extract:
             collection = database[collection_name]
             print("Collection Name: " + collection_name)
 
-            if collection.count_documents() == 0:
+            if collection.count_documents({}) == 0:
                 log.message.info_extraction_collection_empty(collection_name)
 
             document_first = collection.find_one()
