@@ -40,7 +40,7 @@ jobs:
           docker build . --file Dockerfile --tag quay.io/psoseak/m2p-etl:latest-dev
       - name: Push To Registry
         run: |
-          docker login -u ${{ secrets.QUAY_IO_USERID }} -p ${{ secrets.QUAY_IO_PASSWD }} quay.io
+          echo "${{ secrets.QUAY_IO_PASSWD }}" | docker login --username ${{ secrets.QUAY_IO_USERID }} --password-stdin quay.io
           docker push quay.io/psoseak/m2p-etl:latest-dev
           docker logout
           
